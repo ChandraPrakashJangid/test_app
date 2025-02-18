@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-import '../dal/api_client.dart';
+import '../../dal/http_client/http_client.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -12,13 +12,13 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _emailController = TextEditingController();
   final Dio _dio = Dio();
-  late ApiClient _apiClient;
+  late HttpClient _apiClient;
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _apiClient = ApiClient(_dio);
+    _apiClient = HttpClient(_dio);
   }
 
   Future<void> _resetPassword() async {

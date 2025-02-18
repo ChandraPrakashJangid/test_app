@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/screens/forgot_password_screen.dart';
-import 'package:test_app/screens/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/dal/http_client/http_client.dart';
+import 'package:test_app/screens/login/forgot_password_screen.dart';
+import 'package:test_app/screens/login/login_screen.dart';
+import 'package:dio/dio.dart';
+import 'dal/http_repository.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<HttpRepository>(
+          create: (_) => HttpRepository(httpClient: HttpClient(Dio())),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
