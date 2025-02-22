@@ -1,26 +1,35 @@
-// ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
-import 'package:test_app/model/login_response.dart';
-import 'package:test_app/model/login_request.dart';
+import 'package:flutter/foundation.dart';
+import 'package:test_app/dal/helpers/login_helper.dart';
 import 'http_client/http_client.dart';
+import '../model/login_request.dart';
+import '../model/login_response.dart';
 import "package:mockito/annotations.dart";
 
-@GenerateMocks(<Type>[
-  HttpClient
-])
+@GenerateMocks(<Type>[HttpClient])
 class HttpRepository {
-  final HttpClient _httpClient;
+  @protected
+  late HttpClient client;
 
-  HttpRepository({HttpClient? httpClient})
-      : _httpClient = httpClient ?? HttpClient(Dio());
+  @protected
+  late Dio dio;
 
-  Future<LoginResponse> login({required LoginRequest loginRequest}) async {
-    return (await _httpClient.login(loginRequest));
+  HttpRepository({String baseUrl = "https://baseapi.com/api"}) {
+    dio = Dio(BaseOptions(baseUrl: baseUrl));
+    client = HttpClient(dio, baseUrl: baseUrl);
   }
 
-  Future<void> forgotPassword(String email) async {
-    return await _httpClient.forgotPassword({
-      'email': email,
-    });
+  Future<LoginResponse> login({required LoginRequest loginRequest}) async {
+    Future.delayed(Duration(seconds: 2));
+    // return client.login(loginRequest);
+    if (loginRequest.email == "test@test.com" &&
+        loginRequest.password == "123456") {
+      return LoginHelper.loginResponse;
+    }
+    return LoginHelper.failedLoginResponse;
+  }
+
+  Future<void> forgotPassword({required String email}) async {
+    return client.forgotPassword({'email': email});
   }
 }

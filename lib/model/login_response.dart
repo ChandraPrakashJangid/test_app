@@ -4,12 +4,14 @@ part 'login_response.g.dart';
 
 @JsonSerializable()
 class LoginResponse {
-  final String userName;
-  final String userEmail;
+  final String? userName;
+  final String? userEmail;
+  final String? errorMessage;
 
   LoginResponse({
-    required this.userName,
-    required this.userEmail,
+    this.userName,
+    this.userEmail,
+    this.errorMessage,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>

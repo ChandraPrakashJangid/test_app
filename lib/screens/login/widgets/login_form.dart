@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/model/login_request.dart';
-import 'package:test_app/model/login_response.dart';
 
 import '../../../dal/http_repository.dart';
+import '../../../model/login_response.dart';
+import '../../widgets/show_toast.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -34,11 +33,11 @@ class LoginFormState extends State<LoginForm> {
         LoginRequest request = LoginRequest(
             email: _emailController.text, password: _passwordController.text);
         final LoginResponse response = await httpRepository.login(loginRequest: request);
-
+        if(response.errorMessage != null){
+          showToast(color: Colors.redAccent, msg: response.errorMessage ?? "");
+        }
       } catch (error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: $error')),
-        );
+        showToast(color: Colors.redAccent, msg: error.toString());
       } finally {
         setState(() => _isLoading = false);
       }
@@ -47,6 +46,10 @@ class LoginFormState extends State<LoginForm> {
 
   void _navigateToForgotPassword() {
     Navigator.pushNamed(context, '/forgot_password');
+  }
+
+  void _navigateToHome() {
+    Navigator.pushNamed(context, '/home_page');
   }
 
   @override
