@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 
 class DemonstrationScreen extends StatefulWidget {
   const DemonstrationScreen({super.key});
+
   @override
   State<DemonstrationScreen> createState() => _DemonstrationScreenState();
 }
 
 class _DemonstrationScreenState extends State<DemonstrationScreen> {
-  final List<DemoStep> steps = [
-    DemoStep(
-      npcText: "",
-      options: ["Start", "Not yet"],
-    ),
-  ];
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,27 +22,18 @@ class _DemonstrationScreenState extends State<DemonstrationScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: (){
-                
-              },
+              onPressed: () {},
               child: Text("Start Test"),
             ),
-          ElevatedButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            child: const Text("Cancel"),
-          )
-
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            )
           ],
         ),
       ),
     );
   }
-}
-
-class DemoStep {
-  final String npcText;
-  final List<String> options;
-  DemoStep({required this.npcText, required this.options});
 }
