@@ -35,6 +35,8 @@ class LoginFormState extends State<LoginForm> {
         final LoginResponse response = await httpRepository.login(loginRequest: request);
         if(response.errorMessage != null){
           showToast(color: Colors.redAccent, msg: response.errorMessage ?? "");
+        }else{
+          _navigateToHome();
         }
       } catch (error) {
         showToast(color: Colors.redAccent, msg: error.toString());
@@ -49,7 +51,11 @@ class LoginFormState extends State<LoginForm> {
   }
 
   void _navigateToHome() {
-    Navigator.pushNamed(context, '/home_page');
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/home_screen',
+          (Route<dynamic> route) => false,
+    );
   }
 
   @override
