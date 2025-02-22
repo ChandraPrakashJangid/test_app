@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/demonstration');
+                Navigator.pushNamed(context, '/demonstration_screen');
               },
               child: const Text("Start Questionnaire"),
             ),
