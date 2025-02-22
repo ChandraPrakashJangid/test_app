@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:test_app/dal/helpers/login_helper.dart';
+import 'package:test_app/dal/helpers/questions_helper.dart';
+import 'package:test_app/model/question_step.dart';
 import 'http_client/http_client.dart';
 import '../model/login_request.dart';
 import '../model/login_response.dart';
@@ -27,6 +29,11 @@ class HttpRepository {
       return LoginHelper.loginResponse;
     }
     return LoginHelper.failedLoginResponse;
+  }
+
+  Future<List<QuestionStep>> fetchQuestions() async {
+    Future.delayed(Duration(seconds: 2));
+    return QuestionsHelper.steps;
   }
 
   Future<void> forgotPassword({required String email}) async {

@@ -22,7 +22,9 @@ class _DemonstrationScreenState extends State<DemonstrationScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "question_screen");
+              },
               child: Text("Start Test"),
             ),
             ElevatedButton(
